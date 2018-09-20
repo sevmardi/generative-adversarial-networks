@@ -2,11 +2,11 @@ import tensorflow as tf
 import numpy as np
 import seaborn as sb
 import math
-sb.set()
 
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+sb.set()
 
 
 def get_y(x):
@@ -103,9 +103,17 @@ f.write('Iteration,Discriminator Loss,Generator Loss\n')
 for i in range(100001):
     X_batch = sample_data(n=batch_size)
     Z_batch = sample_Z(batch_size, 2)
-    _, dloss = sess.run([disc_step, disc_loss], feed_dict={
-                        X: X_batch, Z: Z_batch})
-    _, gloss = sess.run([gen_step, gen_loss], feed_dict={Z: Z_batch})
+
+    for _ in range(nd_steps):
+        _, dloss = sess.run([disc_step, disc_loss], feed_dict={
+            X: X_batch, Z: Z_batch})
+    rrep_dstep, grep_dstep = sess.run(
+        [r_rep, g_rep], feed_dict={X: X_batch, Z: Z_batch})
+
+    for _ in range(ng_steps):
+        _, gloss = sess.run([gen_step, gen_loss], feed_dict={Z: Z_batch})
+    rrep_gstep, grep_gstep = sess.run(
+        [r_rep, g_rep], feed_dict={X: X_batch, Z: Z_batch})
 
     print("Iterations: %d\t Discriminator loss: %.4f\t Generator loss: %.4f" %
           (i, dloss, gloss))
@@ -151,10 +159,10 @@ for i in range(100001):
         plt.legend((rrdc, rrgc, grdc, grgc), ("Real Data Before G step", "Real Data After G step",
                                               "Generated Data Before G step", "Generated Data After G step"))
 
-        plt.title('Centroid of Transformed Features at Iteration %d'%i)
+        plt.title('Centroid of Transformed Features at Iteration %d' % i)
         plt.tight_layout()
-        plt.savefig('plots/features/feature_transform_centroid_%d.png'%i)
+        plt.savefig('plots/features/feature_transform_centroid_%d.png' % i)
         plt.close()
 
-        
+
 f.close()
