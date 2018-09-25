@@ -9,6 +9,8 @@ from keras.layers import LeakyReLU, Dropout
 from keras.layers import BatchNormalization
 from keras.optimizers import Adam, RMSprop
 
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 class ElapsedTimer(object):
@@ -194,12 +196,11 @@ class MNIST_DCGAN(object):
         else:
             # plt.show()
             pass
-            
 
 if __name__ == '__main__':
     mnist_dcgan = MNIST_DCGAN()
     timer = ElapsedTimer()
-    mnist_dcgan.train(train_steps=5, batch_size=256, save_interval=500)
+    mnist_dcgan.train(train_steps=10000, batch_size=256, save_interval=500)
     timer.elapsed_time()
     mnist_dcgan.plot_images(fake=True)
     mnist_dcgan.plot_images(fake=False, save2file=True)
