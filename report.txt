@@ -1,0 +1,34 @@
+#abstract
+
+
+
+#Introduction
+Over the last couple of years Deep Neural Networks have been successfully trained on number of tasks. This however depends on the data and the question always remains whether it is sufficient. This has been demonstrated in variety of domains [refreneces come here]. 
+However, In all cases we noticed very large datasets have been utilized. But in some cases (such as self driving cars) or settings we need to achieve goals with limited datasets; in those case deep neural networks seem to fall short, overfitting on the training set and producing poor generalisation on the test set. 
+Over the years number of techniques have been developed to tackle such issues or problems in general. Techniques such as dropout, batch normalization, layer normalization. However in low data regimes, even these techniques fall short,
+since the the flexibility of the network is so high. To put it simply, these methods have no abilities to capitalise on known
+input invariances that might form good prior knowledge for informing the parameter learning. 
+
+Old fashion techniques such as image transformations do exist to generate more data from the original dataset. Some of the transformations include random translations, rotations and flips as well as addition of Gaussian noise. Such methods capitalize on transformations that we know should not affect the class.
+This technique seems to be vital, not only for the low-data
+cases but for any size of dataset, in fact even models trained on some of the largest datasets such as Imagenet (Deng et al., 2009) can benefit from this practice. We will explore this technique in the upcoming sections. 
+
+Typical data augmentation techniques use a very limited set of known invariances that are easy to invoke. In this paper we recognize that we can learn a model of a much larger invariance space, through training a form of conditional generative adversarial network (GAN) in a different domain,
+typically called the source domain. This can then be applied in the low-data domain of interest, the target domain. We will explore number of GAN types and determine what are the best possible options for our datasets. 
+
+In this paper, we explore GANs different options to augment data in both video sequences to which it translates to video-to-video synthesis. At the core, using a learned video synthesis model, one can generate realistic videos without explicitly specifying scene geometry, materials, lighting, and their dynamics, which would be cumbersome but necessary when using standard graphics rendering techniques [70]. Video-to-video synthesis problem exists in various forms, including future video prediction and also unconditional video synthesis. We will also explore high-Resolution image-to-image synthesis and semantic manipulation. 
+
+The primary contributions of this paper are:
+- Using a novel Generative Adversarial Network to learn a representation and process for a data augmentation.
+- Demonstrate that on a wide variety of problems, conditional GANs produce reasonable results.
+- Efficient one shot augmentation of matching networks by learning a network to generate only the most salient augmentation examples for any given test case. 
+- Present a simple framework sufficient to achieve good results, and to analyze the effects of several important architectural choices.
+
+# Related Work 
+
+
+#Results
+## Datasets 
+We will be testing our architecture on the following datasets: Deep Drive, Cityscapes dataset. 
+
+## Baselines
