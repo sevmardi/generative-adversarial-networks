@@ -1,22 +1,42 @@
-#abstract
+# Title: Adversarial Generation of Training Examples: Image and video synthesis for Autonomous Driving.
+
+# Title: Adversarial Generation of Training Examples:  Data Augmentation for Autonomous Driving. 
 
 
+# Abstract
+Self-driving cars are one of the most promising prospects for near term artificial intelligence research. Autonomous driving is a well-established problem and the use of large amounts of labelled and contextually rich data to solve the problems of road detection and prediction of vehicle parameters like accelerator, clutch and brake positions have already been explored [5]. 
+
+However, a major challenge is a dataset that is sufficiently rich to cover all situations as well as different conditions. A solution proposed to aid the issue is the use of synthetic data along with natural data to train the system [12].
+GANs are used to generate images through an adversarial training procedure that learns the real data  distribution. 
+
+
+https://towardsdatascience.com/generative-adversarial-networks-for-data-augmentation-experiment-design-2873d586eb59
+
+The question we seek to answer is how this performs compared to GANs in general, but additionally, if we can use these hybrid methods to produce a larger dataset.
 
 #Introduction
-Over the last couple of years Deep Neural Networks have been successfully trained on number of tasks. This however depends on the data and the question always remains whether it is sufficient. This has been demonstrated in variety of domains [refreneces come here]. 
+Over the last couple of years Deep Neural Networks have been successfully trained on number of tasks. This however depends on the data and the question always remains whether it is sufficient. This has been demonstrated in variety of domains [refreneces come here].
 However, In all cases we noticed very large datasets have been utilized. But in some cases (such as self driving cars) or settings we need to achieve goals with limited datasets; in those case deep neural networks seem to fall short, overfitting on the training set and producing poor generalisation on the test set. 
+
 Over the years number of techniques have been developed to tackle such issues or problems in general. Techniques such as dropout, batch normalization, layer normalization. However in low data regimes, even these techniques fall short,
 since the the flexibility of the network is so high. To put it simply, these methods have no abilities to capitalise on known
 input invariances that might form good prior knowledge for informing the parameter learning. 
 
-Old fashion techniques such as image transformations do exist to generate more data from the original dataset. Some of the transformations include random translations, rotations and flips as well as addition of Gaussian noise. Such methods capitalize on transformations that we know should not affect the class.
+\noindent Classical techniques such as image transformations do exist to generate more data from the original dataset. Some of the transformations include random translations, rotations and flips as well as addition of Gaussian noise. Such methods capitalize on transformations that we know should not affect the class.
 This technique seems to be vital, not only for the low-data
 cases but for any size of dataset, in fact even models trained on some of the largest datasets such as Imagenet (Deng et al., 2009) can benefit from this practice. We will explore this technique in the upcoming sections. 
 
-Typical data augmentation techniques use a very limited set of known invariances that are easy to invoke. In this paper we recognize that we can learn a model of a much larger invariance space, through training a form of conditional generative adversarial network (GAN) in a different domain,
-typically called the source domain. This can then be applied in the low-data domain of interest, the target domain. We will explore number of GAN types and determine what are the best possible options for our datasets. 
+\noindent Typical data augmentation techniques use a very limited set of known invariances that are easy to invoke. In this paper we recognize that we can learn a model of a much larger invariance space, through training a form of conditional generative adversarial network (GAN) in a different domain,
+typically called the source domain. This can then be applied in the low-data domain of interest, the target domain. We will explore number of GAN types and determine what are the best possible options for our datasets.\\
 
-In this paper, we explore GANs different options to augment data in both video sequences to which it translates to video-to-video synthesis. At the core, using a learned video synthesis model, one can generate realistic videos without explicitly specifying scene geometry, materials, lighting, and their dynamics, which would be cumbersome but necessary when using standard graphics rendering techniques [70]. Video-to-video synthesis problem exists in various forms, including future video prediction and also unconditional video synthesis. We will also explore high-Resolution image-to-image synthesis and semantic manipulation. 
+\noindent Learning reusable feature representations from large unlabaled data has been an area of active research. In the context of computer vision, one can leverage the pracically unlimited amount of unlabaled images and videos to learn good intermediate reporeseations, which can theb ne used on a variety of supervised learning tasks such as image classification. We propose that one way to build good image representations is by training Generative Adversarial Networks (GANs) (GoodFellow et al., 2014), and later reusing parts of the generator and discrimators networks as feature extractors for supervised tasks. GANs provide an attractive alternative to maximum likelihood techniques.
+One can additionally argue that their learning process and the lack of a heuristic cost function (such as pixel-wise independent mean-square error) are attractive to representation learning. GANs have been known to be unstable to train, often resulting in generators that produce nonsensical outputs.
+
+\noindent In this paper, we explore GANs different options to augment data in both video sequences to which it translates to video-to-video synthesis. At the core, using a learned video synthesis model, one can generate realistic videos without explicitly specifying scene geometry, materials, lighting, and their dynamics, which would be cumbersome but necessary when using standard graphics rendering techniques [ref]. Video-to-video synthesis problem exists in various forms, including future video prediction and also unconditional video synthesis. Also, We will  explore high-Resolution image-to-image synthesis and semantic manipulation. \\
+
+\noindent For image-to-image, we explore different methods and techniques has be done before and also present a method that can learn to do the : capturing special characteristics of one image 
+collection and figuring out how these characteristics could be translated into the other image collection, all in the absence of any paired training examples. This problem can be more broadly described as image-to-image translation [22], converting an image from one representation of a given scene, x, to another, y, e.g., grayscale to color, image to semantic labels, edge-map to photograph.
+
 
 The primary contributions of this paper are:
 - Using a novel Generative Adversarial Network to learn a representation and process for a data augmentation.
@@ -25,10 +45,73 @@ The primary contributions of this paper are:
 - Present a simple framework sufficient to achieve good results, and to analyze the effects of several important architectural choices.
 
 # Related Work 
+### Transfer Learning and Dataset Shift
 
+
+### Data Augmentation
+
+
+### Generative Adversarial Networks paper 5274, 06601, 10593, 11585
+The Generative Adversarial Networks (GANs) [ref] is a framework for learning generative models. GANs have achieved impessive results in image generation [6,39], image editing [66], and representation learning [39, 43, 37]. Recent methods adopt the same idea for conditional image generation applications, such as text2image [41], image inpainting [38], and future prediction [36] as well as to other domains like videos [54] and 3D data [57]. The key idea behind GAN's success is the idea of an adversarial loss that forces the generated images to be, in principle, indistinguishable
+from real photos. This loss is particularly powerful for image generation tasks, as this is exactly the objective that much of computer graphics aims to optimize. 
+
+How it works is as follows:. During GAN training, a generator and a discrimanator are set up to play a zero-sum game. The generator aims to produce realistic synthetic data so that the discriminator cannot differentiate between real and synthetic data. 
+
+In addition to random samples from a noise distribution [18, 52, 12],
+various forms of data can also be used as input to the generator, including images [31, 77, 40], categorical labels [50, 49], and textual descriptions [53, 76]. Such conditional models are called conditional GANs, and allow flexible control over the output of the model. 
+
+### Image-to-image translation. 
+The idea of image-to-image translation goes back at least to Hertzmann et al.’s
+Image Analogies [19],who employ a non-parametric texture model [10] on a single input-output training image pair.
+
+More recent approaches use a dataset of input-output exam-
+ples to learn a parametric translation function using CNNs
+(e.g., [33]).
+
+
+
+Algorithms transfer an input image from one domain to a corresponding
+image in another domain. 
+
+
+### Structured losses for image modeling
+
+
+### Unconditional video synthesis.
+
+### Larger datasets
+
+### Label Propagation.
+
+### Label Transfer.
+
+### Video-to-video synthesis
+
+### Future video prediction.
+
+### Unpaired Image-to-Image Translation
+
+
+
+### Neural Style Transfer
+
+### Deep visual manipulation
+
+# Method
+
+# Experiment Setup
 
 #Results
 ## Datasets 
 We will be testing our architecture on the following datasets: Deep Drive, Cityscapes dataset. 
 
 ## Baselines
+
+
+
+### Limitations and Discussion
+
+
+
+
+##Conclusions
