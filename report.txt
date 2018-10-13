@@ -2,6 +2,8 @@
 
 # Title: Adversarial Generation of Training Examples:  Data Augmentation for Autonomous Driving. 
 
+# Title: Autonomous Driving: Synthetic Image and video through Adversarial Training. 
+
 
 # Abstract
 Self-driving cars are one of the most promising prospects for near term artificial intelligence research. Autonomous driving is a well-established problem and the use of large amounts of labelled and contextually rich data to solve the problems of road detection and prediction of vehicle parameters like accelerator, clutch and brake positions have already been explored [5]. 
@@ -34,9 +36,9 @@ One can additionally argue that their learning process and the lack of a heurist
 
 \noindent In this paper, we explore GANs different options to augment data in both video sequences to which it translates to video-to-video synthesis. At the core, using a learned video synthesis model, one can generate realistic videos without explicitly specifying scene geometry, materials, lighting, and their dynamics, which would be cumbersome but necessary when using standard graphics rendering techniques [ref]. Video-to-video synthesis problem exists in various forms, including future video prediction and also unconditional video synthesis. Also, We will  explore high-Resolution image-to-image synthesis and semantic manipulation. \\
 
-\noindent For image-to-image, we explore different methods and techniques has be done before and also present a method that can learn to do the : capturing special characteristics of one image 
-collection and figuring out how these characteristics could be translated into the other image collection, all in the absence of any paired training examples. This problem can be more broadly described as image-to-image translation [22], converting an image from one representation of a given scene, x, to another, y, e.g., grayscale to color, image to semantic labels, edge-map to photograph.
+\noindent For image-to-image, we explore different methods and techniques has be done before and also present a method that can learn to do the: capturing special characteristics of one image collection and figuring out how these characteristics could be translated into the other image collection, all in the absence of any paired training examples. This problem can be more broadly described as image-to-image translation [22], converting an image from one representation of a given scene, x, to another, y, e.g., grayscale to color, image to semantic labels, edge-map to photograph.
 
+We evaluate the benifits of our proposed data aumentation procedure on two standard dataset for semnatic seqmentation: CityScapes [10] and Simulated datasets provided by SRI 
 
 The primary contributions of this paper are:
 - Using a novel Generative Adversarial Network to learn a representation and process for a data augmentation.
@@ -68,10 +70,10 @@ More recent approaches use a dataset of input-output exam-
 ples to learn a parametric translation function using CNNs
 (e.g., [33]).
 
-
-
 Algorithms transfer an input image from one domain to a corresponding
 image in another domain. 
+
+
 
 
 ### Structured losses for image modeling
@@ -83,7 +85,27 @@ image in another domain.
 
 ### Label Propagation.
 
-### Label Transfer.
+### Label Transfer
+Label transfer methods are very similar
+to label propagation methods in video, but they often use a
+different type of data as intermediate representation. For ex-
+ample, a 3D reconstruction of a scene [35, 34] can be used
+to achieve similar results to labels propagated in videos. Such an approach has benefits at occlusion boundaries (esp. if non-vison based 3D data is used), but may suffer lower accuracies at labelling small classes.
+Another example of a label transfer approach is the leveraging of aerial
+images [25] where labelling some classes (e.g. side-walk or
+road) at scale turns out to be more efficient.
+
+
+### Artificial Data.
+Using artificial data [24, 9] provides an-
+other alternative for obtaining large amounts of high quality
+labelled data. Artificial datasets such as Synthia [30] and
+Virtual KITTI [12] seem to be on the rise. Despite the low
+cost, the direct value of such data for popular semantic seg-
+mentation benchmarks is yet to be proven. Key challenges
+remain obtaining photo-realistic images and modelling real
+world scenes, yet rapid progress has been demonstrated.
+
 
 ### Video-to-video synthesis
 
@@ -97,7 +119,14 @@ image in another domain.
 
 ### Deep visual manipulation
 
+
+
 # Method
+GANs arge generative models that learn a mapping from random noise vector z to ouput image y, G : ~ -> y [23]. In contrast, conditional GANs learn a mapping from observed image x and random noise vector z to y, G : {x,z} -> y. The generator G is trained to produce outputs that cannot be distinguised from 'real' images by an adversarilly trained discriminator D, which is trained to do as well as possible at detecing the generator's "fake". 
+
+## Objective 
+
+
 
 # Experiment Setup
 
